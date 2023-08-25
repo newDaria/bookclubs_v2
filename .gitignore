@@ -1,0 +1,27 @@
+# created by virtualenv automatically
+# Byte-compiled / optimized / DLL files
+*.pyc
+
+# Vim/Emacs swap files
+*.swp
+
+# Python cache directory
+__pycache__
+
+# Python virtual environment
+env/
+.venv/
+venv/
+
+# Local environment settings
+.env
+
+# Database files
+*.sqlite3
+
+# IDE-specific directories (e.g., PyCharm)
+.idea/
+
+# Python virtual environment libraries and executables
+lib/
+bin/
