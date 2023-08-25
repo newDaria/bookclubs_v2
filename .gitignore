@@ -25,3 +25,6 @@ venv/
 # Python virtual environment libraries and executables
 lib/
 bin/
+
+#Other
+profile_pics/
