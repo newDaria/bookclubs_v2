@@ -15,11 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
 from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from bookclubs_app.views import ClubViewSet, CustomUserViewSet
+from bookclubs_app.views import UserProfileCreateAPIView,UserProfileListAPIView, UserProfileUpdateAPIView, UserProfileDestroyAPIView
 from bookclubs import settings
 
 # Create a router for the ClubViewSet
@@ -39,9 +38,15 @@ urlpatterns = [
 
     path("__debug__/", include("debug_toolbar.urls")),
 
-
+    # urls.py
+    path('api/userprofiles/create/', UserProfileCreateAPIView.as_view(), name='userprofile-create'),
+    path('api/userprofiles/list/', UserProfileListAPIView.as_view(), name='userprofile-list'),
+    path('api/userprofiles/update/<int:pk>/', UserProfileUpdateAPIView.as_view(), name='userprofile-update'),
+    path('api/userprofiles/destroy/<int:pk>/', UserProfileDestroyAPIView.as_view(), name='userprofile-destroy'),
 
 ]
+
+
 
 
 

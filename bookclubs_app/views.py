@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.permissions import IsAuthenticated
+from .models import UserProfile
+from .serializers import UserProfileSerializer
+
 
 # Create your views here.
 from rest_framework import viewsets
@@ -16,3 +21,37 @@ class CustomUserViewSet(UserViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     # You can add authentication and permission settings here if needed
+
+
+# views.py
+from rest_framework import permissions
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView
+from .models import UserProfile
+from .serializers import UserProfileSerializer
+
+
+# views.py
+class UserProfileCreateAPIView(CreateAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.AllowAny]
+
+class UserProfileListAPIView(ListAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+class UserProfileUpdateAPIView(UpdateAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+class UserProfileDestroyAPIView(DestroyAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
