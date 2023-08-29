@@ -32,6 +32,11 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+    # new
+    age = models.IntegerField(null=True)
+    job = models.CharField(max_length=255, null=True)
+    phone_number = models.CharField(max_length=15, null=True)
+
     # Define unique related_name values for groups and user_permissions
     groups = models.ManyToManyField(
         'auth.Group',
