@@ -19,22 +19,31 @@ from django.urls import path
 
 from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
-from bookclubs_app.views import ClubViewSet
+from bookclubs_app.views import ClubViewSet, CustomUserViewSet
+from bookclubs import settings
 
 # Create a router for the ClubViewSet
 router = DefaultRouter()
 router.register(r'clubs', ClubViewSet)
+router.register(r'users', CustomUserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # User Authentication URLs using Djoser
-    # path('auth/', include('djoser.urls')),
+
     re_path(r'^auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
+
     # Club Model URLs using ModelViewSet
     path('', include(router.urls)),
+
+    path("__debug__/", include("debug_toolbar.urls")),
+
+
+
 ]
+
+
 
 
 
