@@ -29,6 +29,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView
 from .models import UserProfile
 from .serializers import UserProfileSerializer
+from rest_framework.pagination import LimitOffsetPagination
 
 
 # views.py
@@ -42,6 +43,7 @@ class UserProfileListAPIView(ListAPIView):
     serializer_class = UserProfileSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = LimitOffsetPagination
 
 class UserProfileUpdateAPIView(UpdateAPIView):
     queryset = UserProfile.objects.all()
