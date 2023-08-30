@@ -47,3 +47,15 @@ class UserProfileDestroyAPIView(DestroyAPIView):
     serializer_class = UserProfileSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+
+
+# Forgot the password
+
+# views.py
+from django.shortcuts import render
+
+def home_view(request):
+    return render(request, 'home.html')
+
+
+

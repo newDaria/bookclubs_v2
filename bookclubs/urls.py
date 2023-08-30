@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
-from bookclubs_app.views import ClubViewSet, CustomUserViewSet
-from bookclubs_app.views import UserProfileCreateAPIView,UserProfileListAPIView, UserProfileUpdateAPIView, UserProfileDestroyAPIView
-from bookclubs import settings
+from bookclubs_app.views import ClubViewSet, CustomUserViewSet, home_view
+from bookclubs_app.views import UserProfileCreateAPIView, UserProfileListAPIView, UserProfileUpdateAPIView, \
+    UserProfileDestroyAPIView
+from django.contrib.auth import views as auth_views
 
 # Create a router for the ClubViewSet
 router = DefaultRouter()
@@ -32,23 +33,28 @@ urlpatterns = [
     re_path(r'^auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
-
     # Club Model URLs using ModelViewSet
     path('', include(router.urls)),
 
     path("__debug__/", include("debug_toolbar.urls")),
 
-    # urls.py
     path('api/userprofiles/create/', UserProfileCreateAPIView.as_view(), name='userprofile-create'),
     path('api/userprofiles/list/', UserProfileListAPIView.as_view(), name='userprofile-list'),
     path('api/userprofiles/update/<int:pk>/', UserProfileUpdateAPIView.as_view(), name='userprofile-update'),
     path('api/userprofiles/destroy/<int:pk>/', UserProfileDestroyAPIView.as_view(), name='userprofile-destroy'),
 
+    # forgot the password
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html"),
+         name='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="password_reset_sent.html"),
+         name='password_reset_done'),
+    path('reset/<uidb64>/<token>',
+         auth_views.PasswordResetConfirmView.as_view(template_name="password_reset_form.html"),
+         name='password_reset_confirm'),
+    path('reset_password_complete/',
+         auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_done.html"),
+         name='password_reset_complete'),
+
+    path('home/', home_view, name='home'),
+
 ]
-
-
-
-
-
-
-

@@ -25,7 +25,7 @@ class UserProfileManager(BaseUserManager):
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, null=True)
-    username = models.CharField(max_length=255, unique=True)
+    username = models.CharField(max_length=255)
     profile_pic = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     date_created = models.DateTimeField(null=True, auto_now_add=True)
     is_active = models.BooleanField(default=True)
