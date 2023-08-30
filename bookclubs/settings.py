@@ -157,8 +157,8 @@ DJOSER = {
 }
 
 EMAIL_BACKEND = 'anymail.backends.sendinblue.EmailBackend'
-EMAIL_HOST = 'smtp-relay.brevo.com'
-EMAIL_PORT = 587
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
