@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+import logging
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -188,3 +190,51 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+# LOGGING
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file_all': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'log.log',  # Log file for all levels
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file_all'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+    'root': {
+        'handlers': ['file_all'],
+        'level': 'DEBUG',
+    },
+}
+
+# Now, all log messages will go to 'log.log' file
+logging.info("This is an info message")
+logging.warning("This is a warning message")
+logging.debug("This is a debug message")
+logging.error("This is an error message")
+
+#
+# logging.info("This is an info message")
+# logging.warning("This is a warning message")
+# logging.debug("This is a debug message")
+# logging.error("This is an error message")

@@ -8,9 +8,13 @@ from .models import UserProfile, Club
 from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
 
 class UserProfileSerializer(DjoserUserCreateSerializer):
-    class Meta(DjoserUserCreateSerializer.Meta):
-        # Add any additional fields you want to include during registration here
-        fields = ('email', 'username', 'password')
+    age = serializers.IntegerField(required=True)
+    job = serializers.CharField(max_length=255, required=True)
+    phone_number = serializers.CharField(max_length=15, required=True)
+
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
 
 
 class ClubSerializer(serializers.ModelSerializer):
