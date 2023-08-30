@@ -1,11 +1,7 @@
 from rest_framework import serializers
 from .models import UserProfile, Club
-
-# class UserProfileSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = UserProfile
-#         fields = ('id', 'email', 'username','password')
 from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
+
 
 class UserProfileSerializer(DjoserUserCreateSerializer):
     age = serializers.IntegerField(required=True)
@@ -16,9 +12,13 @@ class UserProfileSerializer(DjoserUserCreateSerializer):
         model = UserProfile
         fields = '__all__'
 
+    def validate_phone_number(self, value):
+        if not value.isdigit():
+            raise serializers.ValidationError("Phone number must contain only digits.")
+        return value
+
 
 class ClubSerializer(serializers.ModelSerializer):
     class Meta:
         model = Club
         fields = ('id', 'name', 'description', 'owner', 'members')
-
